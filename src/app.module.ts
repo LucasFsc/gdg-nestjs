@@ -5,6 +5,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { MongooseModule } from '@nestjs/mongoose';
 import { join } from 'path';
 import { GamesModule } from './games/games.module';
+import { ArticlesModule } from './articles/articles.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { GamesModule } from './games/games.module';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
     GamesModule,
+    ArticlesModule,
   ],
 })
 export class AppModule {}

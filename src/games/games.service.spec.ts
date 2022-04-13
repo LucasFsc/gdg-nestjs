@@ -2,7 +2,9 @@ import { faker } from '@faker-js/faker';
 import { getModelToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ObjectId } from 'mongodb';
+import crudMock from '../__mocks__/mongose-crud.mock';
 import { CreateGameInput } from './dto/create-game.input';
+import { UpdateGameInput } from './dto/update-game.input';
 import { GamesService } from './games.service';
 import { Game } from './schemas/game.schema';
 
@@ -15,31 +17,7 @@ describe('GamesService', () => {
         GamesService,
         {
           provide: getModelToken(Game.name),
-          useValue: {
-            create: jest.fn().mockImplementation((dto: CreateGameInput) => ({
-              ...dto,
-            })),
-            find: jest.fn().mockImplementation(() => [new Game()]),
-            findById: jest
-              .fn()
-              .mockImplementation((_id: string) =>
-                Object.assign<Game, Partial<Game>>(new Game(), { _id }),
-              ),
-            updateOne: jest
-              .fn()
-              .mockImplementation(
-                (filter: Partial<Game>, update: Partial<Game>) =>
-                  Object.assign<Game, Partial<Game>>(new Game(), {
-                    ...filter,
-                    ...update,
-                  }),
-              ),
-            deleteOne: jest.fn().mockImplementation((filter: Partial<Game>) =>
-              Object.assign<Game, Partial<Game>>(new Game(), {
-                _id: filter._id,
-              }),
-            ),
-          },
+          useValue: crudMock<Game>(Game),
         },
       ],
     }).compile();
@@ -77,20 +55,19 @@ describe('GamesService', () => {
     it('should update a game', () => {
       const newName = faker.random.word();
 
-      const game: Game = {
-        _id: new ObjectId().toHexString(),
+      const dto: UpdateGameInput = {
+        id: new ObjectId().toHexString(),
         name: faker.random.word(),
-        createdAt: Date.now(),
       };
 
-      const result = service.update(game._id, { name: newName });
+      const result = service.update(dto.id, { name: newName });
 
       expect(result).toEqual({
-        _id: game._id,
+        _id: dto.id,
         name: newName,
       });
 
-      expect((result as unknown as Game).name).not.toBe(game.name);
+      expect((result as unknown as Game).name).not.toBe(dto.name);
     });
   });
 

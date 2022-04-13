@@ -16,18 +16,18 @@ export class GamesService {
   }
 
   findAll() {
-    return this.gameModel.find();
+    return this.gameModel.find().exec();
   }
 
   findOne(id: string) {
-    return this.gameModel.findById(id);
+    return this.gameModel.findById(id).exec();
   }
 
   update(_id: string, updateGameInput: Partial<UpdateGameInput>) {
-    return this.gameModel.updateOne({ _id }, updateGameInput);
+    return this.gameModel.findByIdAndUpdate(_id, updateGameInput).exec();
   }
 
   remove(_id: string) {
-    return this.gameModel.deleteOne({ _id });
+    return this.gameModel.findByIdAndDelete(_id).exec();
   }
 }

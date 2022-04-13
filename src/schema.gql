@@ -8,15 +8,29 @@ type Game {
   createdAt: Float!
 }
 
+type Article {
+  _id: String!
+  game: Game!
+  title: String!
+  slogan: String!
+  body: String!
+  createdAt: Float!
+}
+
 type Query {
   games: [Game!]!
   game(id: String!): Game!
+  articles: [Article!]!
+  article(id: String!): Article!
 }
 
 type Mutation {
   createGame(createGameInput: CreateGameInput!): Game!
   updateGame(updateGameInput: UpdateGameInput!): Game!
   removeGame(id: String!): Game!
+  createArticle(createArticleInput: CreateArticleInput!): Article!
+  updateArticle(updateArticleInput: UpdateArticleInput!): Article!
+  removeArticle(id: String!): Article!
 }
 
 input CreateGameInput {
@@ -27,5 +41,34 @@ input CreateGameInput {
 input UpdateGameInput {
   """game's name"""
   name: String
+  id: String!
+}
+
+input CreateArticleInput {
+  """game's id"""
+  game: String!
+
+  """article's title"""
+  title: String!
+
+  """article's slogan"""
+  slogan: String!
+
+  """articles's body"""
+  body: String!
+}
+
+input UpdateArticleInput {
+  """game's id"""
+  game: String
+
+  """article's title"""
+  title: String
+
+  """article's slogan"""
+  slogan: String
+
+  """articles's body"""
+  body: String
   id: String!
 }

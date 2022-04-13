@@ -9,5 +9,6 @@ import { Game, GameSchema } from './schemas/game.schema';
     MongooseModule.forFeature([{ name: Game.name, schema: GameSchema }]),
   ],
   providers: [GamesResolver, GamesService],
+  exports: [GamesService],
 })
 export class GamesModule {}
