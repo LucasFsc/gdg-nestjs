@@ -10,7 +10,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework [GDG Mogi Guaçu](https://gdg.community.dev/gdg-mogi-guacu/) presentation project.
+[NestJS](https://github.com/nestjs/nest) presentation project for [GDG Mogi Guaçu](https://gdg.community.dev/gdg-mogi-guacu/).
 
 ## Installation
 
@@ -46,4 +46,4 @@ $ yarn run test:cov
 
 ## License
 
-This project is [MIT licensed](./MIT-LICENSE.txt).
+This project is [MIT licensed](./MIT-LICENSE.md).
